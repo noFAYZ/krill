@@ -25,8 +25,8 @@ Colors resolve from CSS custom properties, not hardcoded values. Types ship with
 
 - **Themeable, not opinionated** — colors resolve via the exported `getThemedColor()` helper; no default theme stylesheet to fight.
 - **TypeScript-first** — full type declarations, `strict` mode, no separate `@types` package.
-- **Tree-shakeable** — dual CJS/ESM builds, `sideEffects` correctly scoped to CSS only.
-- **One import, one stylesheet** — `package.json`'s `exports` exposes nothing but the root barrel; no deep-import paths to learn.
+- **Styles auto-inject** — each component's CSS ships inside its own JS and attaches itself on import; no stylesheet to import or `<link>` separately.
+- **One import** — `package.json`'s `exports` exposes nothing but the root barrel; no deep-import paths to learn.
 - **Accessibility-linted** — `eslint-plugin-jsx-a11y` runs in CI on every push.
 - **Machine-readable docs** — [`llms.txt`](./llms.txt) ships in the package; grep it or feed it to an LLM.
 - **Composition-tested** — exercised end-to-end in this repo's demo as a full email-client UI, not just isolated examples.
@@ -42,7 +42,6 @@ npm install krill react react-dom
 ## Quick start
 
 ```tsx
-import 'krill/dist/esm/index.css'; // required once, app-wide — Krill never auto-injects it
 import { Button, Icon } from 'krill';
 
 export function ComposeButton() {

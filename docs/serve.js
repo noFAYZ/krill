@@ -11,7 +11,7 @@ esbuild
     sourcemap: true,
     define: { 'process.env.NODE_ENV': '"development"' },
     loader: { '.woff2': 'file' },
-    plugins: [svgrPlugin(), sassPlugin()]
+    plugins: [svgrPlugin(), sassPlugin({ type: 'style' })]
   })
   .then((ctx) => ctx.serve({ servedir: 'docs', port: 4100 }))
   .then(({ port }) => {

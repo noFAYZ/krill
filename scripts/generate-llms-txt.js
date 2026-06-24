@@ -23,7 +23,6 @@ npm install krill react react-dom
 React 18 or 19 — see Krill's own README for the React 17 cutoff and why.
 
 \`\`\`tsx
-import 'krill/dist/esm/index.css'; // required once, app-wide — krill does not auto-inject it
 import { Button } from 'krill';
 \`\`\`
 

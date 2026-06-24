@@ -29,10 +29,10 @@ expected.
   - the component showcase at `http://localhost:4000` (`demo/App.tsx`)
   - a working email-client demo built from krill components, mock data only, at
     `http://localhost:4000/email/` (`demo/email/`)
-  Gotcha: any entry that transitively imports a `.scss`/`.css` file (e.g. via `Surface.tsx`)
-  produces a sibling `App.css` output that the matching `index.html` must `<link>` manually —
-  esbuild does not auto-inject it. If you add a third entry, give it a `<link rel="stylesheet">`
-  too or its themed styles will silently not apply.
+  Styles auto-inject: `esbuild-sass-plugin` runs with `type: 'style'` (in `build.js`,
+  `demo/serve.js`, and `docs/serve.js`), so any entry that transitively imports a `.scss` file
+  (e.g. via `Surface.tsx`) gets a `<style>` tag injected at import time — no separate CSS file is
+  produced, and no `<link>` in `index.html` is needed.
 - No test framework or Storybook exist yet.
 - Format with `npx prettier --write <file>` (no npm script wraps this). Style: single quotes, no
   trailing commas, 2-space indent, 120 print width — see `.prettierrc`.

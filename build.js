@@ -123,7 +123,9 @@ const esbuildConf = (format) => ({
   plugins: [
     nodeExternalsPlugin(),
     svgrPlugin(),
-    sassPlugin(),
+    // 'style' injects a <style> tag at import time instead of emitting a separate CSS file,
+    // so consumers never need to import/link krill's CSS themselves.
+    sassPlugin({ type: 'style' }),
     {
       name: 'log-rebuild',
       setup(build) {

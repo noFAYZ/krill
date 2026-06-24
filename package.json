@@ -4,17 +4,10 @@
   "description": "Krill design system — a React UI component library",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "sideEffects": [
-    "*.css"
-  ],
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js"
-    },
-    "./dist/esm/index.css": {
-      "import": "./dist/esm/index.css",
-      "require": "./dist/cjs/index.css"
     }
   },
   "files": [

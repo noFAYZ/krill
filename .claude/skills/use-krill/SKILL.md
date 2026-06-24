@@ -21,9 +21,8 @@ reference for every exported component's exact props.
 3. After adding or editing any `docs/registry/*.tsx` entry (repo-internal only), run `npm run llms`
    to regenerate `llms.txt` — it's generated, don't hand-edit it.
 4. Only ever import from the package root: `import { X } from 'krill'`. `package.json`'s
-   `exports` field exposes just `.` and `./dist/esm/index.css` — no subpath (`krill/dist/...`,
-   `krill/components/...`) resolves for a consumer, in Node or any bundler that respects
-   `exports`.
+   `exports` field exposes only `.` — no subpath (`krill/dist/...`, `krill/components/...`)
+   resolves for a consumer, in Node or any bundler that respects `exports`.
 
 Core conventions (see `CLAUDE.md` for the full list; consuming apps get the same list inlined at
 the top of `llms.txt`):
@@ -34,5 +33,5 @@ the top of `llms.txt`):
   page's ambient one. Colors are CSS custom properties resolved via `getThemedColor()` /
   `getAccentColorValues()` — never hardcode hex values.
 - Dates use `dayjs` (`Dayjs` type), not native `Date`, across DateField/DatePicker/TimeField/etc.
-- Consumers must `import 'krill/dist/esm/index.css'` once, app-wide — krill never auto-injects it.
-- React 17 is a peerDependency, not bundled.
+- Styles auto-inject on import — no separate CSS import or `<link>` is needed.
+- React 18 or 19 is a peerDependency, not bundled.
