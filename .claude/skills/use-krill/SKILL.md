@@ -4,19 +4,29 @@ description: Look up exact component props/imports before writing JSX that uses 
 ---
 
 Krill has 80+ components. Don't guess prop names, types, or defaults from memory or from how a
-similarly-named prop works in another library — `llms.txt` at the repo root is the generated,
-authoritative reference for every exported component's exact props.
+similarly-named prop works in another library — `llms.txt` is the generated, authoritative
+reference for every exported component's exact props.
 
-1. Before writing any code that imports from `krill` (or `../../src` inside this repo), grep
-   `llms.txt` for the component name to get its real prop list, types, and defaults.
-   - Example: `grep -A 20 "^#### DatePicker" llms.txt`
-2. If the component isn't in `llms.txt`, it doesn't have a docs registry entry yet — read the
-   actual `<Name>.types.ts` under `src/components/<Name>/` instead of guessing, and consider
-   whether it's worth adding a registry entry (`docs/registry/*.tsx`) so it shows up next time.
-3. After adding or editing any `docs/registry/*.tsx` entry, run `npm run llms` to regenerate
-   `llms.txt` — it's generated, don't hand-edit it.
+1. Find `llms.txt` and grep it for the component name to get its real prop list, types, and
+   defaults: `grep -A 20 "^#### DatePicker" llms.txt`
+   - Inside this repo: it's at the repo root.
+   - In a consuming app: it ships with the package at `node_modules/krill/llms.txt`.
+2. If the component isn't in `llms.txt`, it doesn't have a docs registry entry yet — read its real
+   types instead of guessing:
+   - Inside this repo: `src/components/<Name>/<Name>.types.ts`.
+   - In a consuming app: `src/` isn't published. Use your editor's go-to-definition on the import,
+     or read `node_modules/krill/dist/src/index.d.ts` directly.
+   - If you're working inside this repo, also consider adding a registry entry
+     (`docs/registry/*.tsx`) so it shows up in `llms.txt` next time.
+3. After adding or editing any `docs/registry/*.tsx` entry (repo-internal only), run `npm run llms`
+   to regenerate `llms.txt` — it's generated, don't hand-edit it.
+4. Only ever import from the package root: `import { X } from 'krill'`. `package.json`'s
+   `exports` field exposes just `.` and `./dist/esm/index.css` — no subpath (`krill/dist/...`,
+   `krill/components/...`) resolves for a consumer, in Node or any bundler that respects
+   `exports`.
 
-Core conventions (see `CLAUDE.md` for the full list):
+Core conventions (see `CLAUDE.md` for the full list; consuming apps get the same list inlined at
+the top of `llms.txt`):
 
 - Styled-component props that are style-only (not meant to reach the DOM) are `$`-prefixed, e.g.
   `$size`, `$color`. Don't pass those names as public component props.

@@ -118,26 +118,38 @@ const esbuildConf = (format) => ({
   treeShaking: true,
   minify: true,
   loader: { '.woff2': 'file' },
-  plugins: [nodeExternalsPlugin(), svgrPlugin(), sassPlugin()],
-  watch: !!process.env.WATCH && {
-    onRebuild(error) {
-      if (error) {
-        console.error(`Error while rebuilding ${format} for ${packagejson.name}:`, error);
-      } else {
-        console.log(`Rebuilt ${format} for ${packagejson.name}`);
+  plugins: [
+    nodeExternalsPlugin(),
+    svgrPlugin(),
+    sassPlugin(),
+    {
+      name: 'log-rebuild',
+      setup(build) {
+        build.onEnd((result) => {
+          if (result.errors.length) {
+            console.error(`Error while building ${format} for ${packagejson.name}`);
+          } else {
+            console.log(`Rebuilt ${format} for ${packagejson.name}`);
+          }
+        });
       }
     }
-  },
-  incremental: true
+  ]
 });
 
 if (WATCH) {
   console.log(`Starting watch mode for ${packagejson.name}`);
 }
 
+const buildOrWatch = async (format) => {
+  if (!WATCH) return esbuild.build(esbuildConf(format));
+  const ctx = await esbuild.context(esbuildConf(format));
+  return ctx.watch();
+};
+
 Promise.all([
-  esbuild.build(esbuildConf('cjs')),
-  esbuild.build(esbuildConf('esm')),
+  buildOrWatch('cjs'),
+  buildOrWatch('esm'),
   WATCH ? spawn('npx tsc -b --preserveWatchOutput -w') : spawn('npx tsc -b')
 ])
   .then(() => {
