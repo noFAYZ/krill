@@ -64,3 +64,11 @@ export enum Type {
 
 export type MouseClickEvents = MouseEvents.CLICK | MouseEvents.MOUSE_DOWN | MouseEvents.MOUSE_UP;
 export type LocalStorageThemeMode = ThemeMode | StorageOnlyThemeMode;
+
+// React 18's RefObject<T> bakes in `current: T | null`; React 19's requires `current: T` exactly,
+// so a `useRef<T>(null)` ref must be typed RefObject<T | null>. Neither spelling satisfies a native
+// JSX `ref` prop under the other major. This structural shape satisfies both, since it matches the
+// actual runtime object regardless of which version's nominal RefObject<T> produced it.
+export interface NullableRef<T> {
+  current: T | null;
+}

@@ -17,12 +17,13 @@ export default function Portal(props: PortalProps) {
 
   useEffect(() => {
     document.body.appendChild(container);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- container isn't in the document until this effect runs; children must wait for that (see "necessary for autofocus props" above)
     setMounted(true);
     return () => {
       document.body.removeChild(container);
       setMounted(false);
     };
-  }, []);
+  }, [container]);
 
   return ReactDOM.createPortal(mounted ? children : null, container);
 }

@@ -62,6 +62,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs, forceTheme, fullWidth, size = Size.ME
 
   // Needed to disable the slider animation on mount
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- deliberately delays the animated class by one render past mount
     setIsLoaded(true);
   }, []);
 

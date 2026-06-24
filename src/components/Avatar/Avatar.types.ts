@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 import { Size, ThemeMode } from '../../types';
 import { AccentColor, Color } from '../../utils/colorUtils';
 import { RequireOnlyOne } from '../../utils/typeUtils';
@@ -34,7 +36,7 @@ interface BaseAvatarProps {
   /** Display user status badge */
   showBadge?: boolean;
   /** Tooltip on badge hover */
-  badgeTooltip?: string | JSX.Element;
+  badgeTooltip?: string | ReactElement;
   /** The size for the Avatar */
   size?: Size;
   /** Avatar in-line style */

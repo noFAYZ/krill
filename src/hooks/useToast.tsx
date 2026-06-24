@@ -8,7 +8,7 @@ import Toast, { TOAST_DEFAULT_DURATION, ToastProps } from '../components/Toast';
 // summon a toast without rendering one inline in its own JSX.
 const useToast = () => {
   // Tracks the most-recently summoned toast's key, so a component can close its own latest toast
-  const toastKey = React.useRef<SnackbarKey>();
+  const toastKey = React.useRef<SnackbarKey | undefined>(undefined);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const slide = (props: SlideProps) => (

@@ -59,18 +59,23 @@ export const getStackedAvatarPositions = (
 ): StackedAvatarPosition => {
   const avatarSize = AVATAR_SIZE_STYLES[size].avatarSize;
   const avatarWrapperSize = avatarSize + STACKED_AVATAR_BORDER_WIDTH * 2;
+  // Each case only overrides indices specific to its own tier; index < numOfItems always holds, so
+  // falling through to smaller tiers' checks is safe and lets every path share the index-0 default.
   switch (numOfItems) {
     case 2: {
       if (index === 1) return { left: avatarWrapperSize * 0.5, top: avatarWrapperSize * 0.5 };
+      // falls through
     }
     case 3: {
       if (index === 1) return { left: avatarSize * 0.75, top: avatarSize * 0.5 };
       if (index === 2) return { left: 0, top: avatarSize };
+      // falls through
     }
     case 4: {
       if (index === 1) return { left: avatarWrapperSize, top: 0 };
       if (index === 2) return { left: 0, top: avatarWrapperSize };
       if (index === 3) return { left: avatarWrapperSize, top: avatarWrapperSize }; // Position of the More label
+      // falls through
     }
     case 1:
     default:

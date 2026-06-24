@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+ 
 /* Opacities */
 const opacities = {
   '--1': '0.01',

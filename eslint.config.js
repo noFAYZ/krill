@@ -17,7 +17,7 @@ module.exports = tseslint.config(
         ecmaFeatures: { jsx: true }
       }
     },
-    settings: { react: { version: '17.0' } },
+    settings: { react: { version: 'detect' } },
     rules: {
       ...react.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,

@@ -10,7 +10,7 @@ const InstallationPage: React.FC = () => (
         Installation
       </Typography>
       <Typography color='secondary' wrap>
-        Krill requires React 17 as a peer dependency.
+        Krill requires React 18 or 19 as a peer dependency.
       </Typography>
     </Header>
 
@@ -20,7 +20,7 @@ const InstallationPage: React.FC = () => (
           1. Install the package
         </Typography>
       </SectionTitle>
-      <CodeBlock code='npm install krill react@^17 react-dom@^17' language='bash' />
+      <CodeBlock code='npm install krill react react-dom' language='bash' />
     </Section>
 
     <Section>

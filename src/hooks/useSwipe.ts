@@ -13,7 +13,7 @@ export interface UseSwipeOptions {
 
 export interface UseSwipeResult {
   /** Attach to the swipeable element */
-  ref: RefObject<HTMLElement>;
+  ref: RefObject<HTMLElement | null>;
   /** Current horizontal swipe offset in px, for driving a transform */
   offset: number;
 }

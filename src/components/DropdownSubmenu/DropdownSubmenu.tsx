@@ -33,8 +33,11 @@ export default function DropdownSubmenu({ label, children, icon, ...dropdownProp
   // Dropdown item ref
   const submenuButtonRef = useRef<HTMLDivElement>(null);
 
+  // showDropdown also gets toggled independently by click; this only re-syncs it to hover state, it
+  // can't be a pure render-time derivation.
   useEffect(() => {
     if (isHovering) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShowDropdownSubmenu(true);
     } else {
       setShowDropdownSubmenu(false);

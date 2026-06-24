@@ -1,8 +1,18 @@
 import { SnackbarProvider } from 'notistack';
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
-import { CommandMenu, CommandMenuItem, Icon, Icons, ThemedBanner, ThemeMode, Toast, themeNames, useHotkeys } from '../../src';
+import {
+  CommandMenu,
+  CommandMenuItem,
+  Icon,
+  Icons,
+  ThemedBanner,
+  ThemeMode,
+  Toast,
+  themeNames,
+  useHotkeys
+} from '../../src';
 
 import ComposeDialog from './ComposeDialog';
 import CreateLabelModal from './CreateLabelModal';
@@ -261,9 +271,8 @@ const App = () => {
   );
 };
 
-ReactDOM.render(
+createRoot(document.getElementById('root') as HTMLElement).render(
   <SnackbarProvider>
     <App />
-  </SnackbarProvider>,
-  document.getElementById('root')
+  </SnackbarProvider>
 );

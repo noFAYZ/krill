@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 import { Size } from '../../types';
 import { Icon } from '../Icons';
 import { IconComponent } from '../IconText';
@@ -12,12 +14,12 @@ export interface DropdownItemProps {
   active?: boolean;
   /** Content color */
   color?: DropdownItemColor;
-  customLabel?: JSX.Element;
+  customLabel?: ReactElement;
   /** E2E test selector */
   dataTest?: string;
   /** Controls the DropdownItem's disabled state */
   disabled?: boolean;
-  endElement?: JSX.Element;
+  endElement?: ReactElement;
   showEndElement?: boolean;
   hideDivider?: boolean;
   /**
@@ -32,7 +34,7 @@ export interface DropdownItemProps {
   /** Whether the dropdown item should be scrolled into view */
   scrollIntoView?: boolean;
   size?: DropdownItemSize;
-  startElement?: JSX.Element;
+  startElement?: ReactElement;
   value?: string;
   onClick?: (e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => void | Promise<void>;
   onHover?: () => void;

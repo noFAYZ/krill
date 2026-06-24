@@ -1,4 +1,4 @@
-import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
+import { PickerDay, PickerDayProps } from '@mui/x-date-pickers/PickerDay';
 import dayjs from 'dayjs';
 import * as React from 'react';
 import styled from 'styled-components';
@@ -16,11 +16,11 @@ const DayContainer = styled.div`
   align-items: center;
 `;
 
-const CustomPickersDay = styled(PickersDay)<{ $forceTheme?: ThemeMode }>`
-  &.MuiPickersDay-root {
+const CustomPickerDay = styled(PickerDay)<{ $forceTheme?: ThemeMode }>`
+  &.MuiPickerDay-root {
     color: ${(props) => getThemedColor('var(--text-primary)', props.$forceTheme)};
 
-    &.MuiPickersDay-today {
+    &.MuiPickerDay-today {
       border-color: ${(props) => getThemedColor('var(--cta-primary-default)', props.$forceTheme)};
     }
 
@@ -50,14 +50,14 @@ export interface DatePickerDayProps {
   forceTheme?: ThemeMode;
 }
 
-const DatePickerDay: React.FC<PickersDayProps<unknown> & DatePickerDayProps> = ({ events, forceTheme, ...other }) => {
+const DatePickerDay: React.FC<PickerDayProps & DatePickerDayProps> = ({ events, forceTheme, ...other }) => {
   const dayEvents = events
     ?.find((event) => dayjs(event.date).isSame(other.day as Date, 'day'))
     ?.colors.slice(0, MAX_NUM_OF_EVENTS_DISPLAYED);
 
   return (
     <DayContainer>
-      <CustomPickersDay {...other} $forceTheme={forceTheme} />
+      <CustomPickerDay {...other} $forceTheme={forceTheme} />
       {!!dayEvents?.length && (
         <EventsDotsContainer>
           {dayEvents.map((color, i) => (

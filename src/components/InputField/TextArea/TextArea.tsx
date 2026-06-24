@@ -109,7 +109,7 @@ const TextArea = (
           onChange={onChange}
           onKeyPress={onKeyPress}
           onKeyDown={
-            !!onKeyDown
+            onKeyDown
               ? (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
                   e.stopPropagation();
                   onKeyDown(e);

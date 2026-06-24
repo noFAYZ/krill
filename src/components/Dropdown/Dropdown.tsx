@@ -37,7 +37,7 @@ const StyledSurface = styled(Surface)<{
   background: ${themeNames.dark['--bg-l3-solid']} !important;
 
   z-index: ${({ $zIndex }) => $zIndex ?? DROPDOWN_DEFAULT_Z_INDEX};
-  width: ${({ $width }) => (!!$width ? `${typeof $width === 'string' ? $width : `${$width}px`}` : 'fit-content')};
+  width: ${({ $width }) => ($width ? `${typeof $width === 'string' ? $width : `${$width}px`}` : 'fit-content')};
   ${({ $hideMouse }) => $hideMouse && HIDE_MOUSE_CSS}
   ${({ $isAnchored }) => ($isAnchored ? ANCHORED_DROPDOWN_CSS : NON_ANCHORED_DROPDOWN_CSS)};
 
@@ -108,7 +108,10 @@ function Dropdown(
   const forceTheme = ThemeMode.DARK;
   // Classes to ignore on outside click
   const classesToIgnore = [SUBMENU_CONTAINER_CLASS];
-  // Current parent button positions
+  // Current parent button positions. Read during render rather than via an effect — the resulting
+  // anchor/shift effects below already re-run off these values, and routing this through its own
+  // effect+state would add a render generation to every reposition without changing the outcome.
+  // eslint-disable-next-line react-hooks/refs
   const currButtonRect = buttonRef?.current?.getBoundingClientRect();
   // Extracted parent button positions and dimensions
   const {
@@ -231,7 +234,7 @@ function Dropdown(
     // or if a custom anchor is passed
     if (!!customAnchor || !!buttonRef) {
       let newAnchor: DropdownAnchor = {};
-      if (!!customAnchor) newAnchor = getCustomAnchor();
+      if (customAnchor) newAnchor = getCustomAnchor();
       else newAnchor = getButtonAnchor();
       setAnchor(newAnchor);
     }
@@ -269,6 +272,7 @@ function Dropdown(
         const dropdownItemHeight = SIZE_HEIGHT[Size.MEDIUM];
         requiredShift = -currSurfaceHeight + dropdownItemHeight + optionMenuPadding;
       }
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- depends on window.innerHeight and post-render DOM measurements, not available during render
       setYShift(requiredShift);
     } else {
       // If it doesn't overflow, reset shifting amount
@@ -276,8 +280,9 @@ function Dropdown(
     }
   }, [setYShift, isSubmenu, showDropdown, currButtonRectBottom, currSurfaceHeight]);
 
-  // Reset anchor
+  // Reset anchor when the consumer-controlled showDropdown prop closes
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- showDropdown is an external prop; resetting local anchor state on close can't be computed during render
     if (!showDropdown) setAnchor({});
   }, [showDropdown]);
 

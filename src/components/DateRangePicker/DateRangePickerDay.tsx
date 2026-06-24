@@ -1,4 +1,4 @@
-import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
+import { PickerDay, PickerDayProps } from '@mui/x-date-pickers/PickerDay';
 import dayjs from 'dayjs';
 import * as React from 'react';
 import styled, { css } from 'styled-components';
@@ -8,8 +8,8 @@ import { getThemedColor } from '../../utils/colorUtils';
 
 import { DateRange } from './DateRangePicker.types';
 
-const CustomPickersDay = styled(PickersDay)<{ $forceTheme?: ThemeMode; $inRange?: boolean }>`
-  &.MuiPickersDay-root {
+const CustomPickerDay = styled(PickerDay)<{ $forceTheme?: ThemeMode; $inRange?: boolean }>`
+  &.MuiPickerDay-root {
     color: ${(props) => getThemedColor('var(--text-primary)', props.$forceTheme)};
 
     ${(props) =>
@@ -19,7 +19,7 @@ const CustomPickersDay = styled(PickersDay)<{ $forceTheme?: ThemeMode; $inRange?
         background: ${getThemedColor('var(--cta-secondary-hover)', props.$forceTheme)};
       `}
 
-    &.MuiPickersDay-today {
+    &.MuiPickerDay-today {
       border-color: ${(props) => getThemedColor('var(--cta-primary-default)', props.$forceTheme)};
     }
 
@@ -44,17 +44,13 @@ export interface DateRangePickerDayProps {
 
 // The free DateCalendar only tracks a single `value`, so the start/end/in-range visuals here are
 // computed by hand from `range` instead of relying on MUI's built-in `selected` day state.
-const DateRangePickerDay: React.FC<PickersDayProps<unknown> & DateRangePickerDayProps> = ({
-  forceTheme,
-  range,
-  ...other
-}) => {
+const DateRangePickerDay: React.FC<PickerDayProps & DateRangePickerDayProps> = ({ forceTheme, range, ...other }) => {
   const day = dayjs(other.day as Date);
   const isStart = !!range?.start && day.isSame(range.start, 'day');
   const isEnd = !!range?.end && day.isSame(range.end, 'day');
   const inRange = !!range?.start && !!range?.end && day.isAfter(range.start, 'day') && day.isBefore(range.end, 'day');
 
-  return <CustomPickersDay {...other} $forceTheme={forceTheme} $inRange={inRange} selected={isStart || isEnd} />;
+  return <CustomPickerDay {...other} $forceTheme={forceTheme} $inRange={inRange} selected={isStart || isEnd} />;
 };
 
 export default DateRangePickerDay;

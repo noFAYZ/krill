@@ -30,15 +30,15 @@ const Checkbox: React.FC<CheckboxProps> = ({
   const color: IconColor = disabled
     ? 'disabled'
     : checked || indeterminate
-      ? checkedColor ?? 'orange'
-      : error
-        ? 'destructive'
-        : 'secondary';
+    ? checkedColor ?? 'orange'
+    : error
+    ? 'destructive'
+    : 'secondary';
   const iconSize = CHECKBOX_ICON_SIZE[size];
 
   // Pops the new icon in (and the old one out) whenever the checked/indeterminate state changes
   const renderIcon = (onIconClick?: (e: React.MouseEvent) => void) => (
-    <AnimatePresence exitBeforeEnter initial={false}>
+    <AnimatePresence initial={false} mode='wait'>
       <motion.span
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.5, opacity: 0 }}

@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 import { FilledVariant, Size, ThemeMode } from '../../types';
 import { Color } from '../../utils/colorUtils';
 import { AvatarComponent } from '../Avatar';
@@ -12,7 +14,7 @@ export interface ChipProps {
   /** Start avatar */
   avatar?: AvatarComponent;
   /** Avatar tooltip text */
-  avatarTooltip?: string | JSX.Element;
+  avatarTooltip?: string | ReactElement;
   /** For styled components */
   className?: string;
   /** Chip color */
@@ -32,7 +34,7 @@ export interface ChipProps {
   /** For chip customization */
   style?: React.CSSProperties;
   /** Chip tooltip text */
-  tooltip?: string | JSX.Element;
+  tooltip?: string | ReactElement;
   /** Text weight */
   typographyWeight?: ChipTypographyWeight;
   /** Filled or unfilled */

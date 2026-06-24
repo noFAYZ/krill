@@ -134,7 +134,7 @@ export const TooltipTrigger = React.forwardRef<
   if (!state) return null;
 
   // `asChild` allows the user to pass any element as the anchor
-  if (asChild && React.isValidElement(children)) {
+  if (asChild && React.isValidElement<Record<string, unknown>>(children)) {
     return React.cloneElement(
       children,
       state.getReferenceProps({
@@ -177,6 +177,10 @@ export const TooltipContent = React.forwardRef<HTMLDivElement, React.HTMLProps<H
     if (state.open) {
       setCurrentId(props.children);
     }
+    // state is from context and may be a new object each render; depending on state?.open (a
+    // primitive) instead avoids re-running this effect on every render while still reacting
+    // correctly to both state appearing/disappearing and open toggling.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state?.open, props.children, setCurrentId]);
 
   if (!state) return null;

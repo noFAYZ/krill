@@ -104,19 +104,17 @@ const InputField = (
   }: InputProps,
   ref: ForwardedRef<HTMLDivElement>
 ) => {
-  const [endAdornmentId, setEndAdornmentId] = useState('');
+  const [endAdornmentId] = useState(() => uniqueId('inputField-endAdornment'));
   const [paddingRight, setPaddingRight] = useState<number | undefined>(undefined);
 
-  const endAdornmentArray = !!endAdornment ? (!Array.isArray(endAdornment) ? [endAdornment] : endAdornment) : undefined;
+  const endAdornmentArray = endAdornment ? (!Array.isArray(endAdornment) ? [endAdornment] : endAdornment) : undefined;
 
-  useEffect(() => {
-    setEndAdornmentId(uniqueId('inputField-endAdornment'));
-  }, []);
-
+  // Measures the end adornment's rendered width so the input can reserve space for it
   useEffect(() => {
     if (!endAdornment) return;
     const endAdornmentElement = document.getElementById(endAdornmentId);
     const endAdornmentWidth = endAdornmentElement?.getBoundingClientRect().width ?? 0;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- DOM measurement, can't be computed during render
     setPaddingRight(endAdornmentWidth);
   }, [endAdornment, endAdornmentId]);
 

@@ -15,4 +15,5 @@ export const getAvatarIconOrLabel = (label?: string, icon?: Icon | IconComponent
  * @param {string} str - Text with emojis
  * @returns {string} - Text without emojis
  */
+// eslint-disable-next-line no-control-regex -- \x00-\x7F is the full ASCII range, used to strip everything outside it (emojis)
 export const stripEmojis = (str: string) => str.replace(/[^\x00-\x7F]/g, '');

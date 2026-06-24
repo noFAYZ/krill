@@ -11,7 +11,7 @@ export interface ColorSelectorProps {
   forceTheme?: ThemeMode;
   hideSelected?: boolean;
   isHighlight?: boolean;
-  pickerColorContainerRef?: React.RefObject<HTMLDivElement>;
+  pickerColorContainerRef?: React.RefObject<HTMLDivElement | null>;
   pickerLeftOffset?: number;
   pickerTopOffset?: number;
   showHover?: boolean;

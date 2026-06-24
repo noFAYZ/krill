@@ -76,7 +76,7 @@ const CodeInput = (
   const endIndex = codeLength - 1;
   // Carries the cursor index, which is always one index ahead of the last entered value
   const [focusedFieldIndex, setFocusedFieldIndex] = useState(
-    !!value.length ? (value.length > endIndex ? endIndex : value.length) : 0
+    value.length ? (value.length > endIndex ? endIndex : value.length) : 0
   );
   // Contains references to all TextField inputs
   const inputRef = useRef<HTMLInputElement[]>([]);
@@ -169,7 +169,9 @@ const CodeInput = (
               e.stopPropagation();
               handlePaste(e, index);
             }}
-            ref={(innerRef: HTMLInputElement) => (inputRef.current[index] = innerRef)}
+            ref={(innerRef: HTMLInputElement) => {
+              inputRef.current[index] = innerRef;
+            }}
             data-test={dataTest}
             key={index}
             disabled={isSubmitting}

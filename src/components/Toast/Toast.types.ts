@@ -1,4 +1,5 @@
 import { SnackbarKey } from 'notistack';
+import { ReactElement } from 'react';
 
 import { Icon } from '../Icons';
 
@@ -22,7 +23,7 @@ export interface ToastProps {
   /** Optional icon, rendered at the start of the toast */
   icon?: Icon;
   /** Optional content (ie an image), rendered at the end of the toast */
-  content?: JSX.Element;
+  content?: ReactElement;
   /**
    * Makes toast persist on the screen until it is manually closed by the user.
    * @default false
@@ -31,7 +32,7 @@ export interface ToastProps {
   /** Redirect link */
   redirectTo?: string;
   /** For two-lined toasts, the title is a bolded header above the body text */
-  title?: string | JSX.Element;
+  title?: string | ReactElement;
   /**
    * Hides close button in top right corner
    * @default false

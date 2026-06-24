@@ -14,7 +14,7 @@ const HOURS_IN_DAY = 24;
 
 interface TimeFieldDropdownProps {
   isOpen: boolean;
-  inputRef: React.RefObject<HTMLDivElement>;
+  inputRef: React.RefObject<HTMLDivElement | null>;
   hourFormat: TimeFieldHourFormat;
   minuteInterval: number;
   onSubmitTime: (time: Dayjs | string | undefined) => void;
@@ -37,24 +37,16 @@ const TimeFieldDropdown: React.FC<TimeFieldDropdownProps> = ({
   date,
   gapFromAnchor
 }) => {
-  const [filteredTimeList, setFilteredTimeList] = React.useState<Dayjs[]>([]);
-
-  const getTimeList = React.useCallback(() => {
-    if (!date) return [];
+  // Avoid recalculating the time list on every render; only do so while the dropdown is shown
+  const filteredTimeList = React.useMemo(() => {
+    if (!isOpen || !date) return [];
     const startOfDay = date.startOf('day');
     const numIntervals = (HOURS_IN_DAY * MINUTES_IN_HOUR) / minuteInterval;
-    return range(numIntervals).map((index) => startOfDay.add(index * minuteInterval, 'minute'));
-  }, [date, minuteInterval]);
-
-  React.useEffect(() => {
-    // Avoid recalculating the time list on every render; only do so while the dropdown is shown
-    if (!isOpen) return;
-    const timeList = getTimeList();
-    const newTimeList = customTimeInput
+    const timeList = range(numIntervals).map((index) => startOfDay.add(index * minuteInterval, 'minute'));
+    return customTimeInput
       ? timeList.filter((time) => dateToFormatString(time, hourFormat).includes(customTimeInput))
       : timeList;
-    setFilteredTimeList(newTimeList);
-  }, [getTimeList, customTimeInput, hourFormat, isOpen]);
+  }, [isOpen, date, minuteInterval, customTimeInput, hourFormat]);
 
   return (
     <Dropdown

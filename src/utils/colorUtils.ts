@@ -14,9 +14,9 @@ function stringToHash(strToHash: string) {
   }
   for (let i = 0; i < strToHash.length; i += 1) {
     const char = strToHash.charCodeAt(i);
-    // eslint-disable-next-line no-bitwise
+     
     hash = (hash << 5) - hash + char;
-    // eslint-disable-next-line no-bitwise
+     
     hash &= hash; // Convert to 32bit integer
   }
   return hash;

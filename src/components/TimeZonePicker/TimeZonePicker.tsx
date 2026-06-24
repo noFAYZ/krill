@@ -31,9 +31,11 @@ const TimeZonePicker: React.FC<TimeZonePickerProps> = ({
     [searchValue]
   );
 
+  // Resets highlight/search state in response to the dropdown opening or closing
   React.useEffect(() => {
     if (isOpen) {
       const activeIndex = uniqueTimezones.findIndex((tz) => tz.name === timeZone);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (activeIndex !== highlightedIdx) setHighlightedIdx(activeIndex);
     } else if (searchValue.length) {
       setSearchValue('');

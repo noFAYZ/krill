@@ -82,7 +82,7 @@ export default function Select({
 
   const closeMenu = () => {
     // Reset search value on closing the dropdown
-    if (!!searchValue.length) setSearchValue('');
+    if (searchValue.length) setSearchValue('');
     setIsMenuOpen(false);
   };
 
@@ -138,8 +138,8 @@ export default function Select({
           e?.stopPropagation();
           // If the child has its own onClick function passed, then it is not a normal select item
           // and we should run onClick without running onChange
-          if (!!child.props.onClick) await child.props.onClick(e);
-          else if (!!child.props.value) onChange(child.props.value);
+          if (child.props.onClick) await child.props.onClick(e);
+          else if (child.props.value) onChange(child.props.value);
           closeMenu();
         },
         onHover: () => setHighlightedIdx(index)

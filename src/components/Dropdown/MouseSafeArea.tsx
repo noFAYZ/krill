@@ -45,12 +45,15 @@ function MouseSafeArea({ openRight, parentRef }: MouseSafeAreaProps) {
   // Mouse positions
   const [mouseX, mouseY] = useMousePosition();
 
-  // Submenu positions and dimensions
+  // Submenu positions and dimensions. Reads parentRef.current during render rather than via an
+  // effect — this is an internal hover-bridge overlay (not user-facing critical path), and the
+  // measurement only needs to be approximately current, not synchronized with React's commit phase.
   const {
     top: submenuTop = 0,
     left: submenuLeft = 0,
     right: submenuRight = 0,
     height: submenuHeight = 0
+    // eslint-disable-next-line react-hooks/refs
   } = parentRef?.current?.getBoundingClientRect() || {};
 
   useEffect(() => {

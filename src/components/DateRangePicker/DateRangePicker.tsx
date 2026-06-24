@@ -1,6 +1,6 @@
 import { DateCalendar, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import locale from 'date-fns/locale/en-US';
+import { enUS as locale } from 'date-fns/locale/en-US';
 import dayjs from 'dayjs';
 import * as React from 'react';
 import { isMobile } from 'react-device-detect';

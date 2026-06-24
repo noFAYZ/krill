@@ -1,4 +1,5 @@
 import { HTMLMotionProps } from 'framer-motion';
+import { ReactElement } from 'react';
 
 import { FilledVariant, ThemeMode, Type } from '../../../types';
 import { Icon } from '../../Icons';
@@ -26,7 +27,7 @@ export interface IconButtonProps {
   /** For customization */
   style?: React.CSSProperties;
   /** IconButton tooltip text */
-  tooltip?: string | JSX.Element;
+  tooltip?: string | ReactElement;
   type?: IconButtonType;
   /** Filled or unfilled */
   variant?: FilledVariant;

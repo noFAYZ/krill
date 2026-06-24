@@ -70,6 +70,7 @@ const TimeInputField: React.FC<TimeInputFieldProps> = ({
   React.useEffect(() => {
     if (!isTimePickerOpen) {
       inputInnerRef.current?.blur();
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- paired with the blur() DOM call above, which itself requires an effect
       setCustomTimeInput(undefined);
     }
   }, [isTimePickerOpen]);

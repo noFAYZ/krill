@@ -1,6 +1,8 @@
+import { NullableRef } from '../../types';
+
 export interface ColorPickerProps {
-  buttonRef: React.RefObject<HTMLDivElement>;
-  colorContainerRef: React.RefObject<HTMLDivElement>;
+  buttonRef: NullableRef<HTMLDivElement>;
+  colorContainerRef: NullableRef<HTMLDivElement>;
   handleColorChange: (color: string) => void;
   open: boolean;
   value: string;

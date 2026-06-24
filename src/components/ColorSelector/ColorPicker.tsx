@@ -55,12 +55,14 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
   const hexErrorState = !!hexInput && !isHexColor(hexInput);
 
   // Resync the hex input buffer whenever the external color or open state changes
-  const prevSyncRef = React.useRef({ color, open });
-  if (prevSyncRef.current.color !== color || prevSyncRef.current.open !== open) {
-    prevSyncRef.current = { color, open };
-    if (!open) setHexInput('');
-    else if (isHexColor(color)) setHexInput(color);
-  }
+  React.useEffect(() => {
+    if (!open) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setHexInput('');
+    } else if (isHexColor(color)) {
+      setHexInput(color);
+    }
+  }, [color, open]);
 
   const handleChangeComplete = (newColor: string) => {
     handleColorChange(newColor);
@@ -69,7 +71,12 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
 
   useOnClickOutside(hexInputRef, () => setHexInputClicked(false));
 
+  // Read during render rather than via an effect: this panel only mounts while open (see the
+  // `if (!open) return null` below), so the position is correct on the very first paint; deferring
+  // to an effect would instead flash at (0, 0) before snapping to the right place.
+  // eslint-disable-next-line react-hooks/refs
   const left = buttonRef.current?.getBoundingClientRect().left ?? 0;
+  // eslint-disable-next-line react-hooks/refs
   const top = buttonRef.current?.getBoundingClientRect().top ?? 0;
 
   let adjustedLeft = left + leftOffset;

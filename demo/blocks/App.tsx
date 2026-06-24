@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from 'dayjs';
 import { SnackbarProvider } from 'notistack';
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import {
   AccentColor,
@@ -330,9 +330,8 @@ const App = () => {
   );
 };
 
-ReactDOM.render(
+createRoot(document.getElementById('root') as HTMLElement).render(
   <SnackbarProvider>
     <App />
-  </SnackbarProvider>,
-  document.getElementById('root')
+  </SnackbarProvider>
 );

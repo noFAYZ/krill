@@ -233,7 +233,7 @@ const Toast = (
     </ToastRoot>
   );
 
-  return !!redirectTo ? <Link href={redirectTo}>{renderToast()}</Link> : renderToast();
+  return redirectTo ? <Link href={redirectTo}>{renderToast()}</Link> : renderToast();
 };
 
 export default React.forwardRef<HTMLDivElement, ToastWithKeyProps>(Toast);

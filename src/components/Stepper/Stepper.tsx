@@ -8,7 +8,7 @@ import { StepperProps } from './Stepper.types';
 
 const CarouselItem = motion(Typography);
 
-const useElementWidth = (elementRef: React.RefObject<HTMLElement>) => {
+const useElementWidth = (elementRef: React.RefObject<HTMLElement | null>) => {
   const [width, setWidth] = React.useState(0);
 
   React.useEffect(() => {

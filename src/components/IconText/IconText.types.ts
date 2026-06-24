@@ -39,7 +39,7 @@ export interface IconTextProps extends IconTextTypographyProps {
   /** For customization */
   style?: React.CSSProperties;
   /** Tooltip text */
-  tooltip?: string | JSX.Element;
+  tooltip?: string | React.ReactElement;
   /** Filled or unfilled */
   variant?: FilledVariant;
   /** Text weight */

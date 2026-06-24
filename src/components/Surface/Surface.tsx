@@ -255,7 +255,7 @@ function Surface(
   const surfaceRef = ref ? (ref as MutableRefObject<HTMLDivElement>) : wrapperRef;
 
   const onCloseSurface = () => {
-    if (!!onClose) void onClose();
+    if (onClose) void onClose();
     else setShowSurface(false);
   };
 
@@ -274,11 +274,12 @@ function Surface(
     });
     // reset surfaceRect state on unmount
     return () => {
-      if (!!setSurfaceRect) setSurfaceRect({ width: 0, height: 0, x: 0, y: 0 });
+      if (setSurfaceRect) setSurfaceRect({ width: 0, height: 0, x: 0, y: 0 });
     };
   }, [surfaceRef, buttonRef, setSurfaceRect]);
   // close the sub-menu if the cursor moves away from the safe area
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- notifies the parent (or falls back to local close) in response to hover/exit-animation state, not derivable at render time
     if (!open && !showSurface) onCloseSurface();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, showSurface]);
@@ -305,7 +306,7 @@ function Surface(
       ref={surfaceRef}
       className={`${SURFACE_CLASSNAME} ${glass ? 'glass' : 'solid'} ${disableShadow ? 'disableShadow' : ''} ${
         padding ? 'padding' : 'noPadding'
-      } ${!!optionMenu ? OPTION_MENU_CLASSNAME : ''} ${modal ? MODAL_CLASSNAME : ''} ${
+      } ${optionMenu ? OPTION_MENU_CLASSNAME : ''} ${modal ? MODAL_CLASSNAME : ''} ${
         hoverEffect ? 'hoverEffect' : ''
       } ${className} ${hug ? 'hug' : ''} ${forceTheme ? forceTheme : ''}`}
       style={style}

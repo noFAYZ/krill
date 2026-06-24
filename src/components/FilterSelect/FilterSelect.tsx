@@ -27,14 +27,13 @@ export const FilterSelect: React.FC<FilterSelectProps> = ({
   const [highlightedIdx, setHighlightedIdx] = React.useState<number>(0);
   const [search, setSearch] = React.useState('');
 
-  const prevOpenRef = React.useRef(open);
-  if (prevOpenRef.current !== open) {
-    prevOpenRef.current = open;
+  React.useEffect(() => {
     if (!open) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- resets local state in response to the open prop closing
       setSearch('');
       setHighlightedIdx(0);
     }
-  }
+  }, [open]);
 
   const setShowDropdown = (dropdownOpen: boolean) => {
     if (!dropdownOpen) onClose();

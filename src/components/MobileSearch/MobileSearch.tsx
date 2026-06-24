@@ -37,6 +37,7 @@ const MobileSearch: React.FC<MobileSearchProps> = ({
 
   // Clear the search whenever resetKey changes, e.g. the consumer navigated to a different view
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- resets local state in response to an external key prop, the documented "reset state on prop change" effect pattern
     clearSearch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resetKey]);
