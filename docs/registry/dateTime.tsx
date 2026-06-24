@@ -1,7 +1,16 @@
 import dayjs, { Dayjs } from 'dayjs';
 import * as React from 'react';
 
-import { Button, DateDisplay, DateField, DatePicker, HourPicker, TimeField, TimeZonePicker } from '../../src';
+import {
+  Button,
+  DateDisplay,
+  DateField,
+  DatePicker,
+  DateRangePicker,
+  HourPicker,
+  TimeField,
+  TimeZonePicker
+} from '../../src';
 import { ComponentDoc } from '../types';
 
 const DateDisplayDoc: ComponentDoc = {
@@ -26,8 +35,18 @@ const DateDisplayDoc: ComponentDoc = {
   props: [
     { name: 'value', type: 'string | number | Date | Dayjs', description: 'The date to display.', required: true },
     { name: 'type', type: "'relative' | 'absolute'", description: 'Display mode.', default: "'relative'" },
-    { name: 'dateFormat', type: 'string', description: 'dayjs format string for the date portion in absolute mode.', default: "'MMM D, YYYY'" },
-    { name: 'hourFormat', type: "'12' | '24'", description: 'Clock format for the time portion in absolute mode.', default: "'12'" }
+    {
+      name: 'dateFormat',
+      type: 'string',
+      description: 'dayjs format string for the date portion in absolute mode.',
+      default: "'MMM D, YYYY'"
+    },
+    {
+      name: 'hourFormat',
+      type: "'12' | '24'",
+      description: 'Clock format for the time portion in absolute mode.',
+      default: "'12'"
+    }
   ]
 };
 
@@ -49,9 +68,19 @@ const DateFieldDoc: ComponentDoc = {
     }
   ],
   props: [
-    { name: 'onSelectDate', type: '(date: Date | null) => void', description: 'Called when a date is picked.', required: true },
+    {
+      name: 'onSelectDate',
+      type: '(date: Date | null) => void',
+      description: 'Called when a date is picked.',
+      required: true
+    },
     { name: 'date', type: 'Dayjs', description: 'Controlled value.' },
-    { name: 'dateFormat', type: 'string', description: 'dayjs format string for the input display.', default: "'MM/DD/YYYY'" },
+    {
+      name: 'dateFormat',
+      type: 'string',
+      description: 'dayjs format string for the input display.',
+      default: "'MM/DD/YYYY'"
+    },
     { name: 'showIcon', type: 'boolean', description: 'Shows a calendar icon at the start of the field.' },
     { name: 'minDate', type: 'Date', description: 'The earliest selectable date.' },
     { name: 'isReadOnly', type: 'boolean', description: 'Disables editing.' }
@@ -62,7 +91,8 @@ const DatePickerDoc: ComponentDoc = {
   slug: 'date-picker',
   title: 'DatePicker',
   category: 'Date & time',
-  description: 'A standalone calendar grid, the same one DateField opens in a dropdown. Supports an optional colored event-dot overlay per day.',
+  description:
+    'A standalone calendar grid, the same one DateField opens in a dropdown. Supports an optional colored event-dot overlay per day.',
   importStatement: "import { DatePicker } from 'krill';",
   examples: [
     {
@@ -76,11 +106,68 @@ const DatePickerDoc: ComponentDoc = {
     }
   ],
   props: [
-    { name: 'onSelectDate', type: '(date: Date | null) => void', description: 'Called when a day is clicked.', required: true },
+    {
+      name: 'onSelectDate',
+      type: '(date: Date | null) => void',
+      description: 'Called when a day is clicked.',
+      required: true
+    },
     { name: 'selectedDate', type: 'Dayjs', description: 'Controlled value.' },
     { name: 'minDate', type: 'Date', description: 'The earliest selectable date.' },
-    { name: 'events', type: '{ date: Dayjs; colors: string[] }[]', description: 'Renders colored dots under days that have events.' },
-    { name: 'showHeader', type: 'boolean', description: 'Shows the month/year header with prev/next arrows.', default: 'true' }
+    {
+      name: 'events',
+      type: '{ date: Dayjs; colors: string[] }[]',
+      description: 'Renders colored dots under days that have events.'
+    },
+    {
+      name: 'showHeader',
+      type: 'boolean',
+      description: 'Shows the month/year header with prev/next arrows.',
+      default: 'true'
+    }
+  ]
+};
+
+const DateRangePickerDoc: ComponentDoc = {
+  slug: 'date-range-picker',
+  title: 'DateRangePicker',
+  category: 'Date & time',
+  description:
+    'A calendar grid for picking a start/end date range. Click a day to set the start, click again to set the end.',
+  importStatement: "import { DateRangePicker } from 'krill';",
+  examples: [
+    {
+      title: 'Controlled range',
+      code: `const [range, setRange] = useState<DateRange>({ start: dayjs(), end: null });
+<DateRangePicker selectedRange={range} onSelectRange={setRange} />`,
+      Component: () => {
+        const [range, setRange] = React.useState<{ start: Dayjs | null; end: Dayjs | null }>({
+          start: dayjs(),
+          end: null
+        });
+        return <DateRangePicker selectedRange={range} onSelectRange={setRange} />;
+      }
+    }
+  ],
+  props: [
+    {
+      name: 'onSelectRange',
+      type: '(range: DateRange) => void',
+      description: 'Called when the start or end of the range is picked.',
+      required: true
+    },
+    {
+      name: 'selectedRange',
+      type: 'DateRange',
+      description: 'Controlled value: `{ start: Dayjs | null; end: Dayjs | null }`.'
+    },
+    { name: 'minDate', type: 'Date', description: 'The earliest selectable date.' },
+    {
+      name: 'showHeader',
+      type: 'boolean',
+      description: 'Shows the month/year header with prev/next arrows.',
+      default: 'true'
+    }
   ]
 };
 
@@ -88,7 +175,8 @@ const TimeFieldDoc: ComponentDoc = {
   slug: 'time-field',
   title: 'TimeField',
   category: 'Date & time',
-  description: 'A text field that opens a time-list dropdown (desktop) or a scrollable hour-wheel drawer (mobile, via HourPicker).',
+  description:
+    'A text field that opens a time-list dropdown (desktop) or a scrollable hour-wheel drawer (mobile, via HourPicker).',
   importStatement: "import { TimeField } from 'krill';",
   examples: [
     {
@@ -102,16 +190,30 @@ const TimeFieldDoc: ComponentDoc = {
       Component: () => {
         const [time, setTime] = React.useState<Dayjs | undefined>(dayjs());
         return (
-          <TimeField date={time} showIcon onSelectTime={(t) => setTime(typeof t === 'string' ? dayjs(t, 'h:mm A') : t)} />
+          <TimeField
+            date={time}
+            showIcon
+            onSelectTime={(t) => setTime(typeof t === 'string' ? dayjs(t, 'h:mm A') : t)}
+          />
         );
       }
     }
   ],
   props: [
-    { name: 'onSelectTime', type: '(time: Dayjs | string) => void', description: 'Called when a time is picked or typed.', required: true },
+    {
+      name: 'onSelectTime',
+      type: '(time: Dayjs | string) => void',
+      description: 'Called when a time is picked or typed.',
+      required: true
+    },
     { name: 'date', type: 'Dayjs', description: 'Controlled value.' },
     { name: 'hourFormat', type: "'12' | '24'", description: 'Clock format.', default: "'12'" },
-    { name: 'minuteInterval', type: 'number', description: 'Minute increment shown in the time list / hour wheel.', default: '15' },
+    {
+      name: 'minuteInterval',
+      type: 'number',
+      description: 'Minute increment shown in the time list / hour wheel.',
+      default: '15'
+    },
     { name: 'showIcon', type: 'boolean', description: 'Shows a clock icon at the start of the field.' }
   ]
 };
@@ -120,7 +222,8 @@ const TimeZonePickerDoc: ComponentDoc = {
   slug: 'time-zone-picker',
   title: 'TimeZonePicker',
   category: 'Date & time',
-  description: 'A searchable dropdown of IANA time zones, each shown with its current UTC offset and a representative city.',
+  description:
+    'A searchable dropdown of IANA time zones, each shown with its current UTC offset and a representative city.',
   importStatement: "import { TimeZonePicker } from 'krill';",
   examples: [
     {
@@ -139,18 +242,39 @@ const [tz, setTz] = useState('America/Los_Angeles');
             <div ref={buttonRef}>
               <Button onClick={() => setOpen(true)}>{tz}</Button>
             </div>
-            <TimeZonePicker buttonRef={buttonRef} isOpen={open} setIsOpen={setOpen} timeZone={tz} onSelectTimeZone={setTz} />
+            <TimeZonePicker
+              buttonRef={buttonRef}
+              isOpen={open}
+              setIsOpen={setOpen}
+              timeZone={tz}
+              onSelectTimeZone={setTz}
+            />
           </>
         );
       }
     }
   ],
   props: [
-    { name: 'buttonRef', type: 'MutableRefObject<HTMLDivElement | null>', description: 'Anchor element ref.', required: true },
+    {
+      name: 'buttonRef',
+      type: 'MutableRefObject<HTMLDivElement | null>',
+      description: 'Anchor element ref.',
+      required: true
+    },
     { name: 'isOpen', type: 'boolean', description: 'Opened / closed state.', required: true },
     { name: 'timeZone', type: 'string', description: 'Currently selected IANA time zone name.', required: true },
-    { name: 'setIsOpen', type: 'Dispatch<SetStateAction<boolean>>', description: 'Updates the open state.', required: true },
-    { name: 'onSelectTimeZone', type: '(tzName: string) => void', description: 'Called when a time zone is selected.', required: true },
+    {
+      name: 'setIsOpen',
+      type: 'Dispatch<SetStateAction<boolean>>',
+      description: 'Updates the open state.',
+      required: true
+    },
+    {
+      name: 'onSelectTimeZone',
+      type: '(tzName: string) => void',
+      description: 'Called when a time zone is selected.',
+      required: true
+    },
     { name: 'fixedHeight', type: 'boolean', description: "Locks the dropdown's scroll area to a fixed height." }
   ]
 };
@@ -170,8 +294,18 @@ const HourPickerDoc: ComponentDoc = {
   ],
   props: [
     { name: 'itemHeight', type: 'number', description: 'Height of each scrollable item, in pixels.', required: true },
-    { name: 'onChange', type: '(value: string) => void', description: 'Called as the wheels settle on a new value.', required: true },
-    { name: 'timeFormat', type: "'h' | 'H' | 'h A' | 'h:mm A' | 'H:mm' | 'HH:mm'", description: 'Determines whether an AM/PM wheel is shown.', required: true },
+    {
+      name: 'onChange',
+      type: '(value: string) => void',
+      description: 'Called as the wheels settle on a new value.',
+      required: true
+    },
+    {
+      name: 'timeFormat',
+      type: "'h' | 'H' | 'h A' | 'h:mm A' | 'H:mm' | 'HH:mm'",
+      description: 'Determines whether an AM/PM wheel is shown.',
+      required: true
+    },
     { name: 'initialHour', type: 'Dayjs | null', description: 'Initial wheel position.' },
     { name: 'minuteInterval', type: 'number', description: 'Minute increment shown in the minute wheel.', default: '1' }
   ]
@@ -181,6 +315,7 @@ export const DATE_TIME_DOCS: ComponentDoc[] = [
   DateDisplayDoc,
   DateFieldDoc,
   DatePickerDoc,
+  DateRangePickerDoc,
   TimeFieldDoc,
   TimeZonePickerDoc,
   HourPickerDoc

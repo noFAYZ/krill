@@ -357,6 +357,19 @@ A standalone calendar grid, the same one DateField opens in a dropdown. Supports
 | `events` | `{ date: Dayjs; colors: string[] }[]` |  |  | Renders colored dots under days that have events. |
 | `showHeader` | `boolean` |  | `true` | Shows the month/year header with prev/next arrows. |
 
+#### DateRangePicker
+
+A calendar grid for picking a start/end date range. Click a day to set the start, click again to set the end.
+
+`import { DateRangePicker } from 'krill';`
+
+| Prop | Type | Required | Default | Description |
+|---|---|---|---|---|
+| `onSelectRange` | `(range: DateRange) => void` | yes |  | Called when the start or end of the range is picked. |
+| `selectedRange` | `DateRange` |  |  | Controlled value: `{ start: Dayjs \| null; end: Dayjs \| null }`. |
+| `minDate` | `Date` |  |  | The earliest selectable date. |
+| `showHeader` | `boolean` |  | `true` | Shows the month/year header with prev/next arrows. |
+
 #### HourPicker
 
 A scrollable hour/minute (and AM/PM) wheel picker, used by TimeField on mobile.
@@ -961,6 +974,19 @@ A Banner that always renders in the opposite of the app theme, for high-contrast
 | `currentTheme` | `ThemeMode` | yes |  | The app's current theme; the banner renders in the opposite theme. |
 | `label` | `string` | yes |  | Banner text. |
 | `icon` | `Icon` |  |  | Leading icon. |
+
+#### TreeView
+
+A nested, expandable/collapsible list for hierarchical data, e.g. folders or threaded items.
+
+`import { TreeView } from 'krill';`
+
+| Prop | Type | Required | Default | Description |
+|---|---|---|---|---|
+| `nodes` | `TreeViewNode[]` | yes |  | Root-level nodes; each may have a nested children array. |
+| `defaultExpandedKeys` | `string[]` |  |  | Node keys expanded on first render. |
+| `selectedKey` | `string` |  |  | Currently selected node key. |
+| `onSelectNode` | `(node: TreeViewNode) => void` |  |  | Called when a row is clicked. |
 
 ### Media
 

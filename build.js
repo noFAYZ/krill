@@ -61,6 +61,7 @@ const esbuildConf = (format) => ({
     'src/components/Date/index.ts',
     'src/components/DateField/index.ts',
     'src/components/DatePicker/index.ts',
+    'src/components/DateRangePicker/index.ts',
     'src/components/DottedGrid/index.ts',
     'src/components/EmptyIllustration/index.ts',
     'src/components/EncryptionBadge/index.ts',
@@ -107,7 +108,8 @@ const esbuildConf = (format) => ({
     'src/components/Select/index.ts',
     'src/components/Skeleton/index.ts',
     'src/components/Surface/index.ts',
-    'src/components/Toast/index.ts'
+    'src/components/Toast/index.ts',
+    'src/components/TreeView/index.ts'
   ],
   splitting: format === 'esm',
   bundle: true,

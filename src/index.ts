@@ -100,6 +100,7 @@ export {
 export { default as DateDisplay, DateDisplayProps, DateDisplayType, getDateContent } from './components/Date';
 export { default as DateField, DateFieldProps } from './components/DateField';
 export { default as DatePicker, DatePickerEvent, DatePickerProps } from './components/DatePicker';
+export { default as DateRangePicker, DateRange, DateRangePickerProps } from './components/DateRangePicker';
 export { default as DottedGrid, DottedGridProps } from './components/DottedGrid';
 export {
   default as EmptyIllustration,
@@ -156,6 +157,7 @@ export {
   TIME_ZONE_PICKER_WIDTH,
   TimeZonePickerProps
 } from './components/TimeZonePicker';
+export { default as TreeView, TreeViewNode, TreeViewProps } from './components/TreeView';
 export { default as VirtualizedList, VirtualizedListProps } from './components/VirtualizedList';
 export { SIZE_HEIGHT } from './constants';
 export { useHotkeys, useOnClickOutside, useOnEscapePress, useSwipe } from './hooks';

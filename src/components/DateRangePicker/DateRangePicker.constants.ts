@@ -1,0 +1,4 @@
+// Always render 6 week rows so the calendar height doesn't jump between months
+export const FIXED_NUMBER_OF_WEEKS = 6;
+
+export const HEADER_MARGIN_BOTTOM = 8;

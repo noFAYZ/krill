@@ -32,6 +32,7 @@ import {
   DateDisplay,
   DateField,
   DatePicker,
+  DateRangePicker,
   Dialog,
   DialogType,
   Divider,
@@ -93,6 +94,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
+  TreeView,
   Type,
   Typography,
   TypographySize,
@@ -375,6 +377,14 @@ const DatePickerDemo = () => {
   return <DatePicker selectedDate={date} onSelectDate={(d) => setDate(d ? dayjs(d as Date) : undefined)} />;
 };
 
+const DateRangePickerDemo = () => {
+  const [range, setRange] = React.useState<{ start: Dayjs | null; end: Dayjs | null }>({
+    start: dayjs(),
+    end: null
+  });
+  return <DateRangePicker selectedRange={range} onSelectRange={setRange} />;
+};
+
 const FilterSelectDemo = () => {
   const buttonRef = React.useRef<HTMLDivElement>(null);
   const [open, setOpen] = React.useState(false);
@@ -499,6 +509,31 @@ const SidebarDemo = () => {
       >
         <Typography weight={TypographyWeight.BOLD}>Krill Mail</Typography>
       </Sidebar>
+    </div>
+  );
+};
+
+const TreeViewDemo = () => {
+  const [selectedKey, setSelectedKey] = React.useState('inbox-work');
+  return (
+    <div style={{ width: 220 }}>
+      <TreeView
+        defaultExpandedKeys={['inbox']}
+        nodes={[
+          {
+            key: 'inbox',
+            label: 'Inbox',
+            icon: Icon.Inbox,
+            children: [
+              { key: 'inbox-work', label: 'Work' },
+              { key: 'inbox-personal', label: 'Personal' }
+            ]
+          },
+          { key: 'sent', label: 'Sent', icon: Icon.Send }
+        ]}
+        selectedKey={selectedKey}
+        onSelectNode={(node) => setSelectedKey(node.key)}
+      />
     </div>
   );
 };
@@ -961,6 +996,10 @@ const App = () => {
         <DatePickerDemo />
       </Section>
 
+      <Section name='DateRangePicker'>
+        <DateRangePickerDemo />
+      </Section>
+
       <Section name='DottedGrid'>
         <div style={{ position: 'relative', width: 240, height: 120, transform: 'translateZ(0)' }}>
           <DottedGrid forceTheme={mode} />
@@ -1103,6 +1142,10 @@ const App = () => {
 
       <Section name='Sidebar'>
         <SidebarDemo />
+      </Section>
+
+      <Section name='TreeView'>
+        <TreeViewDemo />
       </Section>
 
       <Section name='Slider'>

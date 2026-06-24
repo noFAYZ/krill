@@ -20,6 +20,7 @@ import {
   Tabs,
   ThemedBanner,
   ThemeMode,
+  TreeView,
   Typography
 } from '../../src';
 import { ComponentDoc } from '../types';
@@ -84,6 +85,66 @@ const SidebarDoc: ComponentDoc = {
     { name: 'children', type: 'React.ReactNode', description: 'Free-form header content, e.g. a logo row.' },
     { name: 'footer', type: 'React.ReactNode', description: 'Rendered below the sections, pinned to the bottom.' },
     { name: 'width', type: 'number | string', description: 'Sidebar width.', default: '240px' }
+  ]
+};
+
+const TreeViewDoc: ComponentDoc = {
+  slug: 'tree-view',
+  title: 'TreeView',
+  category: 'Layout',
+  description: 'A nested, expandable/collapsible list for hierarchical data, e.g. folders or threaded items.',
+  importStatement: "import { TreeView } from 'krill';",
+  examples: [
+    {
+      title: 'Nested folders',
+      code: `<TreeView
+  defaultExpandedKeys={['inbox']}
+  nodes={[
+    { key: 'inbox', label: 'Inbox', icon: Icon.Inbox, children: [
+      { key: 'inbox-work', label: 'Work' },
+      { key: 'inbox-personal', label: 'Personal' }
+    ] },
+    { key: 'sent', label: 'Sent', icon: Icon.Send }
+  ]}
+  selectedKey={selectedKey}
+  onSelectNode={(node) => setSelectedKey(node.key)}
+/>`,
+      Component: () => {
+        const [selectedKey, setSelectedKey] = React.useState('inbox-work');
+        return (
+          <div style={{ width: 220 }}>
+            <TreeView
+              defaultExpandedKeys={['inbox']}
+              nodes={[
+                {
+                  key: 'inbox',
+                  label: 'Inbox',
+                  icon: Icon.Inbox,
+                  children: [
+                    { key: 'inbox-work', label: 'Work' },
+                    { key: 'inbox-personal', label: 'Personal' }
+                  ]
+                },
+                { key: 'sent', label: 'Sent', icon: Icon.Send }
+              ]}
+              selectedKey={selectedKey}
+              onSelectNode={(node) => setSelectedKey(node.key)}
+            />
+          </div>
+        );
+      }
+    }
+  ],
+  props: [
+    {
+      name: 'nodes',
+      type: 'TreeViewNode[]',
+      description: 'Root-level nodes; each may have a nested children array.',
+      required: true
+    },
+    { name: 'defaultExpandedKeys', type: 'string[]', description: 'Node keys expanded on first render.' },
+    { name: 'selectedKey', type: 'string', description: 'Currently selected node key.' },
+    { name: 'onSelectNode', type: '(node: TreeViewNode) => void', description: 'Called when a row is clicked.' }
   ]
 };
 
@@ -488,6 +549,7 @@ const BrowserDesktopViewDoc: ComponentDoc = {
 
 export const LAYOUT_DOCS: ComponentDoc[] = [
   SidebarDoc,
+  TreeViewDoc,
   TabsDoc,
   SurfaceDoc,
   DividerDoc,
