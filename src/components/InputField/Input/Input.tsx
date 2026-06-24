@@ -149,6 +149,7 @@ const InputField = (
         {!!icon && <StartIcon $ghost={variant === InputFieldVariant.GHOST}>{renderIcon(icon)}</StartIcon>}
         <StyledInput
           id={id}
+          // eslint-disable-next-line jsx-a11y/no-autofocus -- forwarded native attribute, consumer opts in via the autoFocus prop
           autoFocus={autoFocus}
           autoComplete={autoComplete}
           type={type}

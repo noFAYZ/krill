@@ -100,6 +100,7 @@ const TextArea = (
         )}
         <StyledTextArea
           id={TEXT_AREA_ID}
+          // eslint-disable-next-line jsx-a11y/no-autofocus -- forwarded native attribute, consumer opts in via the autoFocus prop
           autoFocus={autoFocus}
           autoComplete={autoComplete}
           rows={rows}

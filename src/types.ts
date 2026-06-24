@@ -50,6 +50,11 @@ export enum TouchEvents {
   TOUCH_START = 'touchstart'
 }
 
+export enum TwelveHourPeriod {
+  AM = 'AM',
+  PM = 'PM'
+}
+
 export enum Type {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',

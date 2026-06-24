@@ -143,9 +143,16 @@ const CodeInput = (
           <CodeInputField
             type={type}
             inputMode={type === CodeInputType.NUMBER ? 'numeric' : 'text'}
+            // eslint-disable-next-line jsx-a11y/no-autofocus -- keeps focus on the active digit box, kept in sync via the effect above
             autoFocus={index === focusedFieldIndex}
             value={val}
-            onBlur={() => inputRef.current[focusedFieldIndex]?.focus()}
+            onBlur={(e: React.FocusEvent<HTMLInputElement>) => {
+              // Only re-claim focus if it's moving to another box in this same CodeInput
+              // (e.g. the user clicked ahead); don't steal focus from the rest of the page
+              if (inputRef.current.includes(e.relatedTarget as HTMLInputElement)) {
+                inputRef.current[focusedFieldIndex]?.focus();
+              }
+            }}
             onChange={handleChange}
             // Backspace only works with onKeyDown
             onKeyDown={(e: React.KeyboardEvent) => {

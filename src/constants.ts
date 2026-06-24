@@ -6,6 +6,6 @@ export const MOUSE_SAFE_AREA_CLASSNAME = 'mouse-safe-area';
 export const SIZE_HEIGHT: Record<Size.X_SMALL | Size.SMALL | Size.MEDIUM | Size.LARGE, number> = {
   xsmall: 28,
   small: 33,
-  medium: 35,
+  medium: 32,
   large: 42
 };

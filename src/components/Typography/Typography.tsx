@@ -1,6 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
+import '../../fonts/fonts.scss';
+
 import { Alignment } from '../../types';
 import { Color, getColorTextValue } from '../../utils/colorUtils';
 

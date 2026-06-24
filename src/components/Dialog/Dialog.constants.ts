@@ -37,6 +37,7 @@ export const DIALOG_TYPE_STYLES: Record<DialogType, DialogTypeStyles> = {
     size: Size.LARGE
   },
   settings: {
-    size: Size.X_LARGE
+    size: Size.X_LARGE,
+    showCloseButton: true
   }
 };

@@ -29,7 +29,7 @@ export const SIZE_STYLES: Record<Size, SizeStyles> = {
     typographySize: TypographySize.MEDIUM
   },
   xmedium: {
-    avatarSize: 32,
+    avatarSize: 34,
     borderRadius: 8,
     borderWidth: 3,
     iconSize: Size.MEDIUM,
@@ -40,7 +40,7 @@ export const SIZE_STYLES: Record<Size, SizeStyles> = {
     borderRadius: 8,
     borderWidth: 3,
     iconSize: Size.MEDIUM,
-    typographySize: TypographySize.LARGE
+    typographySize: TypographySize.MEDIUM
   },
   xlarge: {
     avatarSize: 85,
